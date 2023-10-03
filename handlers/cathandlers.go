@@ -52,13 +52,21 @@ func GetPods(c echo.Context) error {
 	// get pods in all the namespaces by omitting namespace
 	// Or specify namespace to get pods in particular namespace
 	pods, err := clientset.CoreV1().Pods("haotest").List(context.TODO(), metav1.ListOptions{})
+
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{
 			"error": fmt.Sprintf("internal error: %s", err.Error()),
 		})
 	}
+	podsname := make(map[string]string)
+	for i, pod := range pods.Items {
+		podsname[fmt.Sprintf("pod%d", i)] = pod.Name
+		i++
+	}
+	return c.JSON(http.StatusBadRequest, podsname)
+
 	//fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
-	return c.String(http.StatusOK, fmt.Sprintf("There are %d pods in the cluster\n", len(pods.Items)))
+	//return c.String(http.StatusOK, fmt.Sprintf("There are %d pods in the cluster\n", len(pods.Items)))
 
 	// Examples for error handling:
 	// - Use helper functions e.g. errors.IsNotFound()

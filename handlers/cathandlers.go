@@ -54,7 +54,7 @@ func GetPods(c echo.Context) error {
 	pods, err := clientset.CoreV1().Pods("haotest").List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{
-			"error": "internal error",
+			"error": fmt.Sprintf("internal error: %s", err.Error()),
 		})
 	}
 	//fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))

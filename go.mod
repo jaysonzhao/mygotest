@@ -1,6 +1,6 @@
 module github.com/jaysonzhao/gotest
 
-go 1.21.1
+go 1.17
 
 require github.com/labstack/echo v3.3.10+incompatible
 

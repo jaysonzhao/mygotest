@@ -12,6 +12,7 @@ func MainGroup(e *echo.Echo) {
 
 	e.GET("/cats/:data", handlers.GetCats)
 	e.GET("/pods", handlers.GetPods)
+	e.GET("/deploys", handlers.GetDeploys)
 	e.POST("/cats", handlers.AddCat)
 
 }
